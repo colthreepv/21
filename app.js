@@ -9,7 +9,9 @@ var
 
 exports = module.exports = (controllers) => {
   var app = express();
-  app.get('/', serve(path.join(__dirname, 'html')));
+
+  // serve static files
+  app.get('/*', serve(path.join(__dirname, 'html')));
 
   return app;
 };

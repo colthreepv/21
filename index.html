@@ -1,9 +1,20 @@
 <!DOCTYPE html>
-<html ng-app="ngBoilerplate" ng-controller="AppCtrl">
+<html ng-app="21">
   <head>
     <!-- gently taken from: https://raw.githubusercontent.com/ngbp/ngbp/v0.3.2-release/src/index.html -->
     <title ng-bind="pageTitle"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- libs -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.js" charset="utf-8"></script>
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.min.js" charset="utf-8"></script> -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.js" charset="utf-8"></script>
+
+    <!-- libs installed via npm -->
+    <script src="/angular-socket-io.js" charset="utf-8"></script>
+    <!-- frontend code -->
+    <script src="/bundle.js" charset="utf-8"></script>
+
 
     <!-- font awesome from BootstrapCDN -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
