@@ -71,7 +71,9 @@
       </div>
     </div>
 
-    <div class="container" ui-view="main"></div>
+    <div class="container" ng-controller="firstController as fi">
+      <h1>{{ fi.message }}</h1>
+    </div>
 
     <footer class="footer">
       <div class="container">

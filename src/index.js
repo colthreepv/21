@@ -2,10 +2,8 @@ var angular = require('angular');
 
 var app = angular.module('21', ['btford.socket-io']);
 
-function runFn ($rootScope) {
-  console.log('hello 21!');
-  $rootScope.pageTitle = '21 | Home page';
-}
-runFn.$inject = ['$rootScope'];
 
-app.run(runFn);
+
+app.run(require('./run'));
+app.factory('socket', require('./socket-factory'));
+app.controller('firstController', require('./first'));
