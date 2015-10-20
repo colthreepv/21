@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "copy": "cp index.html build/ && cp node_modules/angular-socket-io/socket.js build/angular-socket-io.js",
-    "build": "browserify -t browserify-shim src/index.js -o build/bundle.js",
+    "build": "browserify -t browserify-shim src/index.js -o build/bundle.js -d",
     "start": "npm run copy && npm run build && node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

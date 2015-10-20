@@ -1,10 +1,19 @@
 exports = module.exports = function (io) {
   var self = this;
 
-  self.message = 'loading...';
+  self.status = 'loading';
+  self.players = 0;
+  self.joined = false;
 
-  io.on('welcome', function (data) {
-    self.message = data.hello;
+  io.on('status', function (data) {
+    self.status = data.status;
+    self.players = data.players;
+    self.joined = data.joined;
   });
+
+  self.join = function () {
+    io.emit('join');
+  };
+
 };
 exports.$inject = ['socket'];

@@ -15,26 +15,24 @@
     <!-- frontend code -->
     <script src="/bundle.js" charset="utf-8"></script>
 
-
-    <!-- font awesome from BootstrapCDN -->
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <!-- css -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
   </head>
   <body>
     <div class="container">
       <div class="navbar navbar-default">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" ng-init="menuCollapsed = true"
-            ng-click="menuCollapsed = ! menuCollapsed">
+          <button type="button" class="navbar-toggle" ng-init="menuCollapsed = true" ng-click="menuCollapsed = !menuCollapsed">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            ngbp
+            21
           </div>
         </div>
-        <div class="collapse navbar-collapse" collapse="menuCollapsed">
+        <div class="collapse navbar-collapse" ng-class="!menuCollapsed && 'in'">
           <ul class="nav navbar-nav">
             <li ui-sref-active="active">
               <a href ui-sref="home">
@@ -72,34 +70,13 @@
     </div>
 
     <div class="container" ng-controller="firstController as fi">
-      <h1>{{ fi.message }}</h1>
+      <h1>Game status: <span>{{ fi.status }}</span></h1>
+      <h2>Players: <span>{{ fi.players }}</span></h2>
+      <button ng-click="fi.join()" ng-disabled="fi.joined">Join</button>
     </div>
 
     <footer class="footer">
-      <div class="container">
-        <div class="footer-inner">
-          <ul class="social">
-            <li><a target="_blank" href="http://gplus.to/joshdmiller"><i class="fa fa-google-plus-sign"></i></a></li>
-            <li><a target="_blank" href="http://twitter.com/joshdmiller"><i class="fa fa-twitter-sign"></i></a></li>
-            <li><a target="_blank" href="http://linkedin.com/in/joshdmiller"><i class="fa fa-linkedin-sign"></i></a></li>
-            <li><a target="_blank" href="http://github.com/ngbp/ngbp"><i class="fa fa-github-sign"></i></a></li>
-          </ul>
-
-
-          <p>
-            (c) 2013 <a href="http://www.joshdavidmiller.com">Josh David Miller</a>.
-            <a href="http://github.com/ngbp/ngbp/fork_select">Fork this</a>
-            to kickstart your next project.
-            <br />
-            ngbp is based on
-            <a href="http://www.angularjs.org">AngularJS</a>,
-            <a href="http://getbootstrap.com">Bootstrap</a>,
-            <a href="http://angular-ui.github.com/bootstrap">UI Bootstrap</a>,
-            and
-            <a href="http://fortawesome.github.com/Font-Awesome">Font Awesome</a>.
-          </p>
-        </div>
-      </div>
+      <div class="container"></div>
     </footer>
   </body>
 </html>
