@@ -17,64 +17,46 @@
 
     <!-- css -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+
+    <style>
+      .player {
+        border: 1px solid;
+        border-color: cadetblue;
+        border-radius: 5px;
+        padding-left: 8px;
+      }
+      .blue { color: blue; }
+      .green { color: green; }
+      .red { color: red; }
+    </style>
   </head>
   <body>
-    <div class="container">
-      <div class="navbar navbar-default">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" ng-init="menuCollapsed = true" ng-click="menuCollapsed = !menuCollapsed">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <div class="navbar-brand">
-            21
-          </div>
-        </div>
-        <div class="collapse navbar-collapse" ng-class="!menuCollapsed && 'in'">
-          <ul class="nav navbar-nav">
-            <li ui-sref-active="active">
-              <a href ui-sref="home">
-                <i class="fa fa-home"></i>
-                Home
-              </a>
-            </li>
-            <li ui-sref-active="active">
-              <a href ui-sref="about">
-                <i class="fa fa-info-circle"></i>
-                What is it?
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/ngbp/ngbp#readme">
-                <i class="fa fa-book"></i>
-                Read the Docs
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/ngbp/ngbp">
-                <i class="fa fa-github-alt"></i>
-                Github
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/ngbp/ngbp/issues">
-                <i class="fa fa-comments"></i>
-                Support
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <div class="container"></div>
 
     <div class="container" ng-controller="firstController as fi">
       <h1>Game status: <span>{{ fi.status }}</span></h1>
-      <h2>Players: <span>{{ fi.players }}</span></h2>
-      <button ng-click="fi.join()" ng-disabled="fi.joined">Join</button>
-      <button ng-click="fi.toggleReady()" ng-show="fi.joined && !fi.ready">You are not Ready</button>
-      <button ng-show="fi.ready">You are Ready</button>
+      <div ng-show="fi.status !== 'match'">
+        <h2>Players: <span>{{ fi.players }}</span></h2>
+        <h3>Name: <input type="text" name="name" placeholder="your name" ng-disabled="!fi.joined" ng-model="fi.name" ng-model-options="{ debounce: 500 }" ng-change="fi.updateName(fi.name)"></h3>
+
+        <button ng-click="fi.join()" ng-disabled="fi.joined">Join</button>
+        <button ng-click="fi.toggleReady()" ng-show="fi.joined && !fi.ready">You are not Ready</button>
+        <button ng-show="fi.ready">You are Ready</button>
+      </div>
+
+      <div class="players">
+        <div ng-repeat="(id, player) in fi.pData" class="player">
+          <h5>Player <span>{{ $index + 1 }}</span>
+            <span class="blue" ng-show="id === fi.id">*you*</span>
+            <span ng-show="id !== fi.id">{{ player.name }}</span>
+          </h5>
+          <h6>Ready
+            <span class="red" ng-show="player.ready === false">No</span>
+            <span class="green" ng-show="player.ready === true">Yes</span>
+          </h6>
+        </div>
+      </div>
+
     </div>
 
     <footer class="footer">

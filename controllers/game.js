@@ -15,7 +15,7 @@ class Game {
     // information is redundant, arrays are for finding and hash is for storing data
     this.playersArray = [];
     this.playersReady = [];
-    this.playerData = {};
+    this.pData = {}; // players data
   }
 
   join (socketId) {
@@ -23,7 +23,7 @@ class Game {
     if (this.players > 5) return console.error('too many players');
     this.players++;
     this.playersArray.push(socketId);
-    this.playerData[socketId] = new Player();
+    this.pData[socketId] = new Player();
   }
 
   disconnect (socketId) {
@@ -32,35 +32,36 @@ class Game {
     if (arrayPos = this.playersArray.indexOf(socketId), arrayPos !== -1) {
       this.playersArray.splice(arrayPos, 1);
       this.players--;
+      delete this.pData[socketId];
       debug(`removed player ${ socketId }`);
     }
+    // also remove from ready players, if that was the case
+    if (arrayPos = this.playersReady.indexOf(socketId), arrayPos !== -1) this.playersReady.splice(arrayPos, 1);
   }
 
-  playerIsPresent (socketId) {
-    return this.playersArray.indexOf(socketId) !== -1;
+  changeName (socketId, name) {
+    if (this.status !== 'waiting') return; // cannot change name during match
+    this.pData[socketId].name = name;
   }
 
   ready (socketId) {
     if (this.playersArray.indexOf(socketId) === -1) return console.error(`player: ${ socketId } asked ready but is not in game`);
     debug(`received valid ready from ${ socketId }`);
     this.playersReady.push(socketId);
-    this.playerData[socketId].toggleReady();
+    this.pData[socketId].toggleReady();
+
+    if (this.playersArray.length === this.playersReady.length) this.start();
   }
 
-  playerStatus (socketId) {
-    return {
-      status: this.status,
-      players: this.players,
-      joined: (this.playersArray.indexOf(socketId) !== -1),
-      ready: (this.playersReady.indexOf(socketId) !== -1)
-    };
+  start () {
+    this.status = 'match';
   }
 
   reportStatus () {
     return {
       status: this.status,
       players: this.players,
-      data: this.playerData
+      pData: this.pData
     };
   }
 

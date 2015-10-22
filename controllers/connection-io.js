@@ -1,13 +1,8 @@
 'use strict';
 var debug = require('debug')('21:connection');
 
-exports = module.exports = function (game) {
+exports = module.exports = (game) => {
   var gameRoom = game.id; // for now there is only one socket.io room: http://socket.io/docs/rooms-and-namespaces/
-
-  // send the client its status
-  function playerStatus (socket) {
-    socket.emit('player-status', game.playerStatus(socket.id));
-  }
 
   function connection (socket) {
     var io = socket.server; // reference to socket.io
@@ -18,23 +13,26 @@ exports = module.exports = function (game) {
       io.to(gameRoom).emit('game-status', game.reportStatus());
     }
 
-    // at the initial connection, broadcast the status
-    playerStatus(socket);
+    // at the initial connection, tell the client which is its own id
+    socket.emit('game-status', game.reportStatus()); // informations only to the newly joined client
 
     // commands that the client can issue
-    socket.on('join', function () {
+    socket.on('join', () => {
       game.join(socket.id);
-      playerStatus(socket);
       gameStatus();
     });
 
-    socket.on('ready', function () {
+    socket.on('ready', () => {
       game.ready(socket.id);
-      playerStatus(socket);
       gameStatus();
     });
 
-    socket.on('disconnect', function () {
+    socket.on('change-name', name => {
+      game.changeName(socket.id, name);
+      gameStatus();
+    });
+
+    socket.on('disconnect', () => {
       debug(`disconnected ${ socket.id }`);
       game.disconnect(socket.id);
       gameStatus();

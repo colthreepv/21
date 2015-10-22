@@ -9,6 +9,9 @@
     "classes": true,
     "templateStrings": true
   },
+  "globals": {
+    "angular": false
+  },
   "rules": {
     "brace-style": [2, "1tbs"],
     "comma-spacing": 2,
