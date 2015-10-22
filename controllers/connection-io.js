@@ -1,5 +1,5 @@
 'use strict';
-var debug = require('debug')('connection');
+var debug = require('debug')('21:connection');
 
 exports = module.exports = function (game) {
   var gameRoom = game.id; // for now there is only one socket.io room: http://socket.io/docs/rooms-and-namespaces/
@@ -35,7 +35,7 @@ exports = module.exports = function (game) {
     });
 
     socket.on('disconnect', function () {
-      debug('disconnected ${ socket.id }');
+      debug(`disconnected ${ socket.id }`);
       game.disconnect(socket.id);
       gameStatus();
     });

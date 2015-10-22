@@ -1,15 +1,21 @@
 'use strict';
 
+// npm
 var shortid = require('shortid');
-var debug = require('debug')('game');
+var debug = require('debug')('21:game');
+
+// internals
+var Player = require('./player');
 
 class Game {
   constructor () {
     this.id = shortid();
     this.status = 'waiting';
     this.players = 0;
+    // information is redundant, arrays are for finding and hash is for storing data
     this.playersArray = [];
     this.playersReady = [];
+    this.playerData = {};
   }
 
   join (socketId) {
@@ -17,6 +23,7 @@ class Game {
     if (this.players > 5) return console.error('too many players');
     this.players++;
     this.playersArray.push(socketId);
+    this.playerData[socketId] = new Player();
   }
 
   disconnect (socketId) {
@@ -37,6 +44,7 @@ class Game {
     if (this.playersArray.indexOf(socketId) === -1) return console.error(`player: ${ socketId } asked ready but is not in game`);
     debug(`received valid ready from ${ socketId }`);
     this.playersReady.push(socketId);
+    this.playerData[socketId].toggleReady();
   }
 
   playerStatus (socketId) {
@@ -51,7 +59,8 @@ class Game {
   reportStatus () {
     return {
       status: this.status,
-      players: this.players
+      players: this.players,
+      data: this.playerData
     };
   }
 

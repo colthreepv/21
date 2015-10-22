@@ -21,6 +21,7 @@ exports = module.exports = function (io, $log) {
   });
 
   io.on('game-status', function (gameStatus) {
+    $log.info(gameStatus);
     self.status = gameStatus.status;
     self.players = gameStatus.players;
   });
