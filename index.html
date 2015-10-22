@@ -73,6 +73,8 @@
       <h1>Game status: <span>{{ fi.status }}</span></h1>
       <h2>Players: <span>{{ fi.players }}</span></h2>
       <button ng-click="fi.join()" ng-disabled="fi.joined">Join</button>
+      <button ng-click="fi.toggleReady()" ng-show="fi.joined && !fi.ready">You are not Ready</button>
+      <button ng-show="fi.ready">You are Ready</button>
     </div>
 
     <footer class="footer">
