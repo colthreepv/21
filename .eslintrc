@@ -7,6 +7,10 @@
     "arrowFunctions": true,
     "blockBindings": true,
     "classes": true,
+    "objectLiteralComputedProperties": true,
+    "objectLiteralDuplicateProperties": true,
+    "objectLiteralShorthandMethods": true,
+    "objectLiteralShorthandProperties": true,
     "templateStrings": true
   },
   "globals": {

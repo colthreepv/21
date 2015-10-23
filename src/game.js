@@ -4,25 +4,24 @@ exports = module.exports = function (io, $log) {
   self.status = 'loading';
 
   // defaults
-  self.players = 0;
+  self.playerNum = 0;
   self.joined = false;
   self.ready = false;
   self.name = '';
 
   // data received from server, set to null for now
   self.id = null;
-  self.player = {};
-  self.pData = {};
+  self.players = {};
 
-  function updatePlayers (pData) {
-    self.pData = angular.extend(self.pData, pData);
+  function updatePlayers (players) {
+    self.players = angular.extend(self.players, players);
+    var player;
 
     // if the actual player is present in the player list, destructure its informations
-    if (pData[self.id]) {
+    if (player = players[self.id], player != null) {
       self.joined = true;
-      self.ready = pData[self.id].ready;
-      angular.extend(self.player, pData[self.id]);
-      self.name = pData[self.id].name;
+      self.ready = player.ready;
+      self.name = player.name;
     } else {
       self.joined = false;
     }
@@ -41,8 +40,8 @@ exports = module.exports = function (io, $log) {
   io.on('game-status', function (gameStatus) {
     $log.info('game', gameStatus);
     self.status = gameStatus.status;
-    self.players = gameStatus.players;
-    updatePlayers(gameStatus.pData);
+    self.playersNum = gameStatus.playersNum;
+    updatePlayers(gameStatus.players);
   });
 
   self.join = function () {

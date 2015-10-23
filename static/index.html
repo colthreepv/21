@@ -22,30 +22,30 @@
   <body>
     <div class="container"></div>
 
-    <div class="container" ng-controller="firstController as fi">
-      <h1>Game status: <span>{{ fi.status }}</span></h1>
-      <div ng-show="fi.status !== 'match'">
-        <h2>Players: <span>{{ fi.players }}</span></h2>
-        <h3>Name: <input type="text" name="name" placeholder="your name" ng-disabled="!fi.joined" ng-model="fi.name" ng-model-options="{ debounce: 500 }" ng-change="fi.updateName(fi.name)"></h3>
+    <div class="container" ng-controller="gameController as gm">
+      <h1>Game status: <span>{{ gm.status }}</span></h1>
+      <div ng-show="gm.status !== 'match'">
+        <h2>Players: <span>{{ gm.playersNum }}</span></h2>
+        <h3>Name: <input type="text" name="name" placeholder="your name" ng-disabled="!gm.joined" ng-model="gm.name" ng-model-options="{ debounce: 500 }" ng-change="gm.updateName(gm.name)"></h3>
 
-        <button ng-click="fi.join()" ng-disabled="fi.joined">Join</button>
-        <button ng-click="fi.toggleReady()" ng-show="fi.joined && !fi.ready">You are not Ready</button>
-        <button ng-show="fi.ready">You are Ready</button>
+        <button ng-click="gm.join()" ng-disabled="gm.joined">Join</button>
+        <button ng-click="gm.toggleReady()" ng-show="gm.joined && !gm.ready">You are not Ready</button>
+        <button ng-show="gm.ready">You are Ready</button>
       </div>
 
       <div>
-        <div ng-repeat="(id, player) in fi.pData" class="player">
+        <div ng-repeat="(id, player) in gm.players" class="player">
           <div class="players">
             <h5>Player <span>{{ $index + 1 }}</span>
-              <span class="blue" ng-show="id === fi.id">*you*</span>
-              <span ng-show="id !== fi.id">{{ player.name }}</span>
+              <span class="blue" ng-show="id === gm.id">*you*</span>
+              <span ng-show="id !== gm.id">{{ player.name }}</span>
             </h5>
-            <h6 ng-show="fi.status === 'waiting'">Ready
+            <h6 ng-show="gm.status === 'waiting'">Ready
               <span class="red" ng-show="player.ready === false">No</span>
               <span class="green" ng-show="player.ready === true">Yes</span>
             </h6>
           </div>
-          <div class="cards" ng-show="fi.status === 'match'">
+          <div class="cards" ng-show="gm.status === 'match'">
             <div class="card" ng-repeat="card in player.cards" ng-class="card"></div>
           </div>
         </div>

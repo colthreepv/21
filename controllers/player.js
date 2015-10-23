@@ -9,12 +9,20 @@ exports = module.exports = () => {
     constructor () {
       this.name = chance.name();
       this.ready = false;
-      this.cards = [];
+      this._cards = [];
     }
 
     toggleReady () {
       debug(`player ${ this.name } is ready`),
       this.ready = true;
+    }
+
+    get cards () {
+      return this._cards;
+    }
+
+    addCard (card) {
+      this.cards.push(card);
     }
   }
 

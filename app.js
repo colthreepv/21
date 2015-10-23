@@ -6,7 +6,7 @@ var
   express = require('express'),
   serve = require('serve-static');
 
-exports = module.exports = (controllers) => {
+exports = module.exports = () => {
   var app = express();
 
   // serve static files
@@ -14,5 +14,3 @@ exports = module.exports = (controllers) => {
 
   return app;
 };
-
-exports['@require'] = ['controllers'];
