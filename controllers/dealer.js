@@ -9,13 +9,13 @@ exports = module.exports = (Player) => {
       this.name = 'Dealer';
       this.ready = true;
       // dealer has an private array of cards and a public one
-      this._privCards = [];
-      this._cover = true;
+      Object.defineProperty(this, '_cards', { value: [] });
+      Object.defineProperty(this, '_cover', { writeble: true, value: 'true' });
     }
 
     // each card gets pushed to both arrays
     addCard (card) {
-      if (this._cover && this._privCards.length === 1) this.cards.push('covered');
+      if (this._cover && this._cards.length === 1) this.cards.push('covered');
       this.cards.push(card);
     }
 

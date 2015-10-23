@@ -4,10 +4,9 @@ var Chance = require('chance');
 var chance = new Chance();
 var debug = require('debug')('21:player');
 
-exports = module.exports = (Serializable) => {
-  class Player extends Serializable {
+exports = module.exports = () => {
+  class Player {
     constructor () {
-      super();
       this.name = chance.name();
       this.ready = false;
       this.cards = [];
@@ -25,6 +24,3 @@ exports = module.exports = (Serializable) => {
 
   return Player;
 };
-exports['@require'] = [
-  'controllers/serializable'
-];
