@@ -27,7 +27,7 @@ exports = module.exports = (game) => {
       gameStatus();
     });
 
-    socket.on('change-name', name => {
+    socket.on('change-name', (name) => {
       game.changeName(socket.id, name);
       gameStatus();
     });
