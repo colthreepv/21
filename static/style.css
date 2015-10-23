@@ -1,0 +1,80 @@
+/* terrible colthreepv styles */
+.player {
+  border: 1px solid;
+  border-color: cadetblue;
+  border-radius: 5px;
+  padding-left: 8px;
+}
+.blue { color: blue; }
+.green { color: green; }
+.red { color: red; }
+.players {
+  display: inline-block;
+  vertical-align: top;
+}
+.cards {
+  display: inline-block;
+  margin-left: 40px;
+}
+
+/* Taken from https://github.com/tonyspiro/blackjack */
+.card {
+  background-image: url(/cards.png);
+  display: inline-block;
+  height: 123px;
+  width: 79px;
+}
+
+/* Cards */
+.ace-of-clubs { background-position: 0 0; }
+.two-of-clubs { background-position: -79px 0; }
+.three-of-clubs { background-position: -158px 0; }
+.four-of-clubs { background-position: -237px 0; }
+.five-of-clubs { background-position: -316px 0; }
+.six-of-clubs { background-position: -395px 0; }
+.seven-of-clubs { background-position: -474px 0; }
+.eight-of-clubs { background-position: -553px 0; }
+.nine-of-clubs { background-position: -632px 0; }
+.ten-of-clubs { background-position: -711px 0; }
+.jack-of-clubs { background-position: -790px 0; }
+.queen-of-clubs { background-position: -869px 0; }
+.king-of-clubs { background-position: -948px 0; }
+.ace-of-spades { background-position: 0 -123px; }
+.two-of-spades { background-position: -79px -123px; }
+.three-of-spades { background-position: -158px -123px; }
+.four-of-spades { background-position: -237px -123px; }
+.five-of-spades { background-position: -316px -123px; }
+.six-of-spades { background-position: -395px -123px; }
+.seven-of-spades { background-position: -474px -123px; }
+.eight-of-spades { background-position: -553px -123px; }
+.nine-of-spades { background-position: -632px -123px; }
+.ten-of-spades { background-position: -711px -123px; }
+.jack-of-spades { background-position: -790px -123px; }
+.queen-of-spades { background-position: -869px -123px; }
+.king-of-spades { background-position: -948px -123px; }
+.ace-of-hearts { background-position: 0 -246px; }
+.two-of-hearts { background-position: -79px -246px; }
+.three-of-hearts { background-position: -158px -246px; }
+.four-of-hearts { background-position: -237px -246px; }
+.five-of-hearts { background-position: -316px -246px; }
+.six-of-hearts { background-position: -395px -246px; }
+.seven-of-hearts { background-position: -474px -246px; }
+.eight-of-hearts { background-position: -553px -246px; }
+.nine-of-hearts { background-position: -632px -246px; }
+.ten-of-hearts { background-position: -711px -246px; }
+.jack-of-hearts { background-position: -790px -246px; }
+.queen-of-hearts { background-position: -869px -246px; }
+.king-of-hearts { background-position: -948px -246px; }
+.ace-of-diamonds { background-position: 0 -369px; }
+.two-of-diamonds { background-position: -79px -369px; }
+.three-of-diamonds { background-position: -158px -369px; }
+.four-of-diamonds { background-position: -237px -369px; }
+.five-of-diamonds { background-position: -316px -369px; }
+.six-of-diamonds { background-position: -395px -369px; }
+.seven-of-diamonds { background-position: -474px -369px; }
+.eight-of-diamonds { background-position: -553px -369px; }
+.nine-of-diamonds { background-position: -632px -369px; }
+.ten-of-diamonds { background-position: -711px -369px; }
+.jack-of-diamonds { background-position: -790px -369px; }
+.queen-of-diamonds { background-position: -869px -369px; }
+.king-of-diamonds { background-position: -948px -369px; }

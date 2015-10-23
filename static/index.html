@@ -17,18 +17,7 @@
 
     <!-- css -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-
-    <style>
-      .player {
-        border: 1px solid;
-        border-color: cadetblue;
-        border-radius: 5px;
-        padding-left: 8px;
-      }
-      .blue { color: blue; }
-      .green { color: green; }
-      .red { color: red; }
-    </style>
+    <link href="/style.css" rel="stylesheet">
   </head>
   <body>
     <div class="container"></div>
@@ -44,16 +33,21 @@
         <button ng-show="fi.ready">You are Ready</button>
       </div>
 
-      <div class="players">
+      <div>
         <div ng-repeat="(id, player) in fi.pData" class="player">
-          <h5>Player <span>{{ $index + 1 }}</span>
-            <span class="blue" ng-show="id === fi.id">*you*</span>
-            <span ng-show="id !== fi.id">{{ player.name }}</span>
-          </h5>
-          <h6>Ready
-            <span class="red" ng-show="player.ready === false">No</span>
-            <span class="green" ng-show="player.ready === true">Yes</span>
-          </h6>
+          <div class="players">
+            <h5>Player <span>{{ $index + 1 }}</span>
+              <span class="blue" ng-show="id === fi.id">*you*</span>
+              <span ng-show="id !== fi.id">{{ player.name }}</span>
+            </h5>
+            <h6 ng-show="fi.status === 'waiting'">Ready
+              <span class="red" ng-show="player.ready === false">No</span>
+              <span class="green" ng-show="player.ready === true">Yes</span>
+            </h6>
+          </div>
+          <div class="cards" ng-show="fi.status === 'match'">
+            <div class="card" ng-repeat="card in player.cards" ng-class="card"></div>
+          </div>
         </div>
       </div>
 
