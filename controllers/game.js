@@ -55,10 +55,14 @@ exports = module.exports = (Player, Dealer, Deck) => {
     }
 
     reportStatus () {
+      const serializedPlayers = {};
+      for (let key in this.players) {
+        serializedPlayers[key] = this.players[key].toJSON()
+      }
       return {
         status: this.status,
         playersNum: this.playersNum,
-        players: this.players,
+        players: serializedPlayers,
         dealer: this.dealer
       };
     }

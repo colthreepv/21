@@ -8,19 +8,15 @@ exports = module.exports = (Player) => {
       super();
       this.name = 'Dealer';
       this.ready = true;
-      this._cards = [];
+      // dealer has an private array of cards and a public one
+      this._privCards = [];
       this._cover = true;
     }
 
-    get cards () {
-      return this._cards.map((card, idx) => {
-        if (this._cover && idx === 1) return 'covered';
-        return card;
-      });
-    }
-
+    // each card gets pushed to both arrays
     addCard (card) {
-      this._cards.push(card);
+      if (this._cover && this._privCards.length === 1) this.cards.push('covered');
+      this.cards.push(card);
     }
 
     uncover () {
