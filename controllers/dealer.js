@@ -38,7 +38,8 @@ exports = module.exports = (Player) => {
 
     lowerScoreThanMe () {
       return Object.keys(this.players).reduce((prev, current) => {
-        if (this.players[current].score < this.score) return prev++;
+        if (this.players[current].score < this.score) return ++prev;
+        return prev;
       }, 0);
     }
 
@@ -46,6 +47,7 @@ exports = module.exports = (Player) => {
       this.uncover();
       const halfPlayers = (Object.keys(this.players).length / 2) | 0;
       const playersWithLessScore = this.lowerScoreThanMe();
+      debug('players with less score than dealer', playersWithLessScore);
       // if has an higher score than half the players, Dealer stays
       if (playersWithLessScore < halfPlayers) {
         this.hit();
