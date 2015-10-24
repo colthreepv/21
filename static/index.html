@@ -34,7 +34,7 @@
       </div>
 
       <div>
-        <div ng-repeat="(id, player) in gm.players" class="player-section">
+        <div ng-repeat="(id, player) in gm.players" class="player-section" ng-class="player.busted && 'busted'">
           <div class="ib player-list">
             <h5>Player <span>{{ $index + 1 }}</span>
               <span class="blue" ng-show="id === gm.id">*you*</span>
@@ -47,7 +47,7 @@
             <h6 ng-show="gm.status === 'match' && gm.gameTurn === id">
               <span class="green">It's turn</span>
             </h6>
-            <div ng-show="gm.gameTurn === id">
+            <div ng-show="gm.gameTurn === id && gm.gameTurn === gm.id">
               <button ng-click="gm.hit()">Hit</button>
               <button ng-click="gm.stand()">Stand</button>
             </div>
@@ -62,7 +62,7 @@
           </div>
         </div>
         <!-- dealer section -->
-        <div class="player-section" ng-show="gm.status === 'match'">
+        <div class="player-section" ng-show="gm.status === 'match'" ng-class="gm.dealer.busted && 'busted'">
           <div class="ib player-list">
             <h4>Dealer</h4>
           </div>

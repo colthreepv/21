@@ -83,11 +83,16 @@ exports = module.exports = (Player, Dealer, Deck) => {
     // assign the turn to a player
     turn () {
       this.gameTurn = this.playersArray[this.currentPlayer];
+      if (this.playersArray.length < this.currentPlayer + 1) { // dealer turn
+        this.dealer.play();
+      }
+      this.currentPlayer++;
     }
 
     hit (socketId) { // player hits
       this.players[socketId].addCard(this.deck.extract());
-      // FIXME: if card value is too high, make the player bust
+      // if the player busted, take a turn
+      if (this.players[socketId].busted) this.turn();
     }
 
     stand () { // player stands
