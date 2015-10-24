@@ -64,12 +64,19 @@ exports = module.exports = () => {
       this.info = deck;
       this.cardsAvailable = [];
       for (var i in deck) {
-        this.cardsAvailable.push(i);
+        this.cardsAvailable.push({
+          name: i,
+          value: deck[i]
+        });
       }
     }
 
     shuffle () {
       shuffle(this.cardsAvailable); // modifies original Array
+    }
+
+    extract () {
+      return this.cardsAvailable.pop();
     }
   }
 

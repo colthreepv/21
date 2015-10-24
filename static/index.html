@@ -34,8 +34,8 @@
       </div>
 
       <div>
-        <div ng-repeat="(id, player) in gm.players" class="player">
-          <div class="players">
+        <div ng-repeat="(id, player) in gm.players" class="player-section">
+          <div class="ib player-list">
             <h5>Player <span>{{ $index + 1 }}</span>
               <span class="blue" ng-show="id === gm.id">*you*</span>
               <span ng-show="id !== gm.id">{{ player.name }}</span>
@@ -44,9 +44,35 @@
               <span class="red" ng-show="player.ready === false">No</span>
               <span class="green" ng-show="player.ready === true">Yes</span>
             </h6>
+            <h6 ng-show="gm.status === 'match' && gm.gameTurn === id">
+              <span class="green">It's turn</span>
+            </h6>
+            <div ng-show="gm.gameTurn === id">
+              <button ng-click="gm.hit()">Hit</button>
+              <button ng-click="gm.stand()">Stand</button>
+            </div>
           </div>
-          <div class="cards" ng-show="gm.status === 'match'">
-            <div class="card" ng-repeat="card in player.cards" ng-class="card"></div>
+          <div class="ib" ng-show="gm.status === 'match'">
+            <div class="cards">
+              <div class="card" ng-repeat="card in player.cards" ng-class="card.name"></div>
+            </div>
+            <div class="score" ng-show="!player.busted">
+              <h4>Score: {{ player.score }}</h4>
+            </div>
+          </div>
+        </div>
+        <!-- dealer section -->
+        <div class="player-section" ng-show="gm.status === 'match'">
+          <div class="ib player-list">
+            <h4>Dealer</h4>
+          </div>
+          <div class="ib">
+            <div class="cards">
+              <div class="card" ng-repeat="card in gm.dealer.cards" ng-class="card.name"></div>
+            </div>
+            <div class="score" ng-show="!gm.dealer.busted">
+              <h4>Score: {{ gm.dealer.score }}</h4>
+            </div>
           </div>
         </div>
       </div>

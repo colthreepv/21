@@ -1,5 +1,5 @@
 /* terrible colthreepv styles */
-.player {
+.player-section {
   border: 1px solid;
   border-color: cadetblue;
   border-radius: 5px;
@@ -8,13 +8,13 @@
 .blue { color: blue; }
 .green { color: green; }
 .red { color: red; }
-.players {
-  display: inline-block;
+.ib { display: inline-block; }
+.ib > div { display: inline-block; }
+.player-list { vertical-align: top; }
+.cards { margin-left: 40px; }
+.score {
   vertical-align: top;
-}
-.cards {
-  display: inline-block;
-  margin-left: 40px;
+  margin: 30px 0 0 30px;
 }
 
 /* Taken from https://github.com/tonyspiro/blackjack */
@@ -26,6 +26,7 @@
 }
 
 /* Cards */
+.covered { background-position: -158px -492px; }
 .ace-of-clubs { background-position: 0 0; }
 .two-of-clubs { background-position: -79px 0; }
 .three-of-clubs { background-position: -158px 0; }

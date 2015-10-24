@@ -1,6 +1,6 @@
 {
   "name": "21",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "blackjack for dummies",
   "main": "index.js",
   "scripts": {

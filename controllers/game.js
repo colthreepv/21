@@ -12,6 +12,8 @@ exports = module.exports = (Player, Dealer, Deck) => {
       this.status = 'waiting';
       this.playersNum = 0;
       // information is redundant, arrays are for finding and hash is for storing data
+      this.gameTurn = null;
+      this.currentPlayer = 0;
       this.playersArray = [];
       this.playersReady = [];
       this.players = {}; // players data
@@ -59,7 +61,8 @@ exports = module.exports = (Player, Dealer, Deck) => {
         status: this.status,
         playersNum: this.playersNum,
         players: this.players,
-        dealer: this.dealer
+        dealer: this.dealer,
+        gameTurn: this.gameTurn
       };
     }
 
@@ -67,20 +70,38 @@ exports = module.exports = (Player, Dealer, Deck) => {
       this.deck.shuffle(); // everyday I'm shufflin https://www.youtube.com/watch?v=KQ6zr6kCPj8
       // for each player deal 2 cards
       Object.keys(this.players).forEach((playerId) => {
-        let card1 = this.deck.cardsAvailable.pop();
-        let card2 = this.deck.cardsAvailable.pop();
+        const card1 = this.deck.extract();
+        const card2 = this.deck.extract();
         this.players[playerId].addCard(card1);
         this.players[playerId].addCard(card2);
       });
+      // give 2 cards to the dealer as well
+      this.dealer.addCard(this.deck.extract());
+      this.dealer.addCard(this.deck.extract());
+    }
+
+    // assign the turn to a player
+    turn () {
+      this.gameTurn = this.playersArray[this.currentPlayer];
+    }
+
+    hit (socketId) { // player hits
+      this.players[socketId].addCard(this.deck.extract());
+      // FIXME: if card value is too high, make the player bust
+    }
+
+    stand () { // player stands
+      this.turn();
     }
 
     start () {
       this.status = 'match';
       this.deal();
+      this.turn();
     }
   }
 
-  return new Game();
+  return Game;
 };
 exports['@require'] = [
   'controllers/player',

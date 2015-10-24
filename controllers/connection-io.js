@@ -1,7 +1,8 @@
 'use strict';
 var debug = require('debug')('21:connection');
 
-exports = module.exports = (game) => {
+exports = module.exports = (Game) => {
+  var game = new Game();
   var gameRoom = game.id; // for now there is only one socket.io room: http://socket.io/docs/rooms-and-namespaces/
 
   function connection (socket) {
@@ -35,9 +36,22 @@ exports = module.exports = (game) => {
     socket.on('disconnect', () => {
       debug(`disconnected ${ socket.id }`);
       game.disconnect(socket.id);
+      if (game.playersArray.length === 0) {
+        game = new Game(); // restart the game if everyone leaves
+        debug('restarted game');
+      }
       gameStatus();
     });
 
+    // game commands
+    socket.on('hit', () => {
+      game.hit(socket.id);
+      gameStatus();
+    });
+    socket.on('stand', () => {
+      game.stand(socket.id);
+      gameStatus();
+    });
   };
 
   return connection;
