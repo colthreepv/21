@@ -29,6 +29,7 @@ exports = module.exports = function (io, $log) {
       self.name = player.name;
     } else {
       self.joined = false;
+      self.name = '';
     }
   }
 

@@ -4,8 +4,8 @@ var debug = require('debug')('21:dealer');
 
 exports = module.exports = (Player) => {
   class Dealer extends Player {
-    constructor () {
-      super();
+    constructor (deck) {
+      super(deck);
       this.name = 'Dealer';
       this.ready = true;
       // dealer has an private array of cards and a public one
@@ -14,7 +14,8 @@ exports = module.exports = (Player) => {
     }
 
     // each card gets pushed to both arrays
-    addCard (card) {
+    addCard () {
+      const card = this.deck.extract();
       // hide second card
       this._cards.push(card); // private
       if (this._cover && this._cards.length === 2) {

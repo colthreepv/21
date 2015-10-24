@@ -18,7 +18,7 @@ exports = module.exports = (Player, Dealer, Deck) => {
       this.playersReady = [];
       this.players = {}; // players data
       this.deck = new Deck();
-      this.dealer = new Dealer();
+      this.dealer = new Dealer(this.deck);
     }
 
     join (socketId) {
@@ -26,7 +26,7 @@ exports = module.exports = (Player, Dealer, Deck) => {
       if (this.playersNum > 5) return console.error('too many players');
       this.playersNum++;
       this.playersArray.push(socketId);
-      this.players[socketId] = new Player();
+      this.players[socketId] = new Player(this.deck);
     }
 
     disconnect (socketId) {
@@ -70,14 +70,12 @@ exports = module.exports = (Player, Dealer, Deck) => {
       this.deck.shuffle(); // everyday I'm shufflin https://www.youtube.com/watch?v=KQ6zr6kCPj8
       // for each player deal 2 cards
       Object.keys(this.players).forEach((playerId) => {
-        const card1 = this.deck.extract();
-        const card2 = this.deck.extract();
-        this.players[playerId].addCard(card1);
-        this.players[playerId].addCard(card2);
+        this.players[playerId].addCard();
+        this.players[playerId].addCard();
       });
-      // give 2 cards to the dealer as well
-      this.dealer.addCard(this.deck.extract());
-      this.dealer.addCard(this.deck.extract());
+      // dealer gets 2 cards as well
+      this.dealer.addCard();
+      this.dealer.addCard();
     }
 
     // assign the turn to a player
@@ -90,7 +88,7 @@ exports = module.exports = (Player, Dealer, Deck) => {
     }
 
     hit (socketId) { // player hits
-      this.players[socketId].addCard(this.deck.extract());
+      this.players[socketId].hit();
       // if the player busted, take a turn
       if (this.players[socketId].busted) this.turn();
     }

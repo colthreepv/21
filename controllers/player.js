@@ -6,12 +6,13 @@ var debug = require('debug')('21:player');
 
 exports = module.exports = () => {
   class Player {
-    constructor () {
+    constructor (deck) {
       this.name = chance.name();
       this.ready = false;
       this.cards = [];
       this.busted = false;
       this.score = 0;
+      this.deck = deck; // reference to deck so Player(s) can interact with it
     }
 
     toggleReady () {
@@ -19,8 +20,8 @@ exports = module.exports = () => {
       this.ready = true;
     }
 
-    addCard (card) {
-      this.cards.push(card);
+    addCard () {
+      this.cards.push(this.deck.extract());
       this.countValue();
     }
 
@@ -40,6 +41,10 @@ exports = module.exports = () => {
       } else {
         this.score = newValue;
       }
+    }
+
+    hit () {
+      this.addCard();
     }
   }
 
