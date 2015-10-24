@@ -14,6 +14,16 @@ exports = module.exports = (Game) => {
       io.to(gameRoom).emit('game-status', game.reportStatus());
     }
 
+    function playerLeaves () {
+      debug(`disconnected ${ socket.id }`);
+      game.disconnect(socket.id);
+      if (game.playersArray.length === 0) {
+        game = new Game(); // restart the game if everyone leaves
+        debug('restarted game');
+      }
+      gameStatus();
+    }
+
     // at the initial connection, tell the client which is its own id
     socket.emit('game-status', game.reportStatus()); // informations only to the newly joined client
 
@@ -33,15 +43,8 @@ exports = module.exports = (Game) => {
       gameStatus();
     });
 
-    socket.on('disconnect', () => {
-      debug(`disconnected ${ socket.id }`);
-      game.disconnect(socket.id);
-      if (game.playersArray.length === 0) {
-        game = new Game(); // restart the game if everyone leaves
-        debug('restarted game');
-      }
-      gameStatus();
-    });
+    socket.on('disconnect', playerLeaves);
+    socket.on('leave', playerLeaves);
 
     // game commands
     socket.on('hit', () => {

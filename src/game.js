@@ -16,6 +16,7 @@ exports = module.exports = function (io, $log) {
   function updateStatus (gameStatus) {
     $log.info('game', gameStatus);
     self.status = gameStatus.status;
+    self.ended = gameStatus.ended;
     self.playerNum = gameStatus.playerNum;
     self.gameTurn = gameStatus.gameTurn;
     self.players = gameStatus.players;
@@ -29,6 +30,7 @@ exports = module.exports = function (io, $log) {
       self.name = player.name;
     } else {
       self.joined = false;
+      self.ready = false;
       self.name = '';
     }
   }
@@ -41,6 +43,9 @@ exports = module.exports = function (io, $log) {
 
   self.join = function () {
     io.emit('join');
+  };
+  self.leave = function () {
+    io.emit('leave');
   };
 
   self.toggleReady = function () {

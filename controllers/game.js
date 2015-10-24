@@ -10,6 +10,7 @@ exports = module.exports = (Player, Dealer, Deck) => {
     constructor () {
       this.id = shortid();
       this.status = 'waiting';
+      this.ended = false;
       this.playersNum = 0;
       // information is redundant, arrays are for finding and hash is for storing data
       this.gameTurn = null;
@@ -58,11 +59,12 @@ exports = module.exports = (Player, Dealer, Deck) => {
 
     reportStatus () {
       return {
-        status: this.status,
-        playersNum: this.playersNum,
-        players: this.players,
         dealer: this.dealer,
-        gameTurn: this.gameTurn
+        ended: this.ended,
+        gameTurn: this.gameTurn,
+        players: this.players,
+        playersNum: this.playersNum,
+        status: this.status
       };
     }
 
@@ -88,7 +90,8 @@ exports = module.exports = (Player, Dealer, Deck) => {
       this.currentPlayer++;
     }
 
-    declare () {
+    declare () { // declare winners
+      this.ended = true;
       const dealerScore = this.dealer.score;
       Object.keys(this.players).forEach((playerId) => {
         this.players[playerId].win = (this.players[playerId].score > dealerScore);

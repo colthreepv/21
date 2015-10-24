@@ -23,7 +23,12 @@
     <div class="container"></div>
 
     <div class="container" ng-controller="gameController as gm">
-      <h1>Game status: <span>{{ gm.status }}</span></h1>
+      <h1>Game status: <span>{{ gm.status }}</span> <strong class="red" ng-show="gm.ended">ENDED</strong></h1>
+      <div ng-show="gm.ended && gm.joined">
+        <h1>Game is ended</h1>
+        <h3>If all the players leaves the game, another one will start.</h3>
+        <button ng-click="gm.leave()">Leave Game</button>
+      </div>
       <div ng-show="gm.status !== 'match'">
         <h2>Players: <span>{{ gm.playersNum }}</span></h2>
         <h3>Name: <input type="text" name="name" placeholder="your name" ng-disabled="!gm.joined" ng-model="gm.name" ng-model-options="{ debounce: 500 }" ng-change="gm.updateName(gm.name)"></h3>
