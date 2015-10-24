@@ -36,7 +36,8 @@
       <div>
         <div ng-repeat="(id, player) in gm.players" class="player-section" ng-class="player.busted && 'busted'">
           <div class="ib player-list">
-            <h5>Player <span>{{ $index + 1 }}</span>
+            <h5>Player <strong>{{ $index + 1 }}</strong></h5>
+            <h5>
               <span class="blue" ng-show="id === gm.id">*you*</span>
               <span ng-show="id !== gm.id">{{ player.name }}</span>
             </h5>
@@ -51,6 +52,9 @@
               <button ng-click="gm.hit()">Hit</button>
               <button ng-click="gm.stand()">Stand</button>
             </div>
+            <!-- FIXME -->
+            <h1 ng-show="player.win === true">WIN</h1>
+            <h1 ng-show="player.win === false">LOST</h1>
           </div>
           <div class="ib" ng-show="gm.status === 'match'">
             <div class="cards">

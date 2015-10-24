@@ -18,7 +18,7 @@ exports = module.exports = (Player, Dealer, Deck) => {
       this.playersReady = [];
       this.players = {}; // players data
       this.deck = new Deck();
-      this.dealer = new Dealer(this.deck);
+      this.dealer = new Dealer(this.deck, this.players);
     }
 
     join (socketId) {
@@ -83,8 +83,16 @@ exports = module.exports = (Player, Dealer, Deck) => {
       this.gameTurn = this.playersArray[this.currentPlayer];
       if (this.playersArray.length < this.currentPlayer + 1) { // dealer turn
         this.dealer.play();
+        this.declare();
       }
       this.currentPlayer++;
+    }
+
+    declare () {
+      const dealerScore = this.dealer.score;
+      Object.keys(this.players).forEach((playerId) => {
+        this.players[playerId].win = (this.players[playerId].score > dealerScore);
+      });
     }
 
     hit (socketId) { // player hits
