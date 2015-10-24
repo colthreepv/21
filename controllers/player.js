@@ -28,12 +28,13 @@ exports = module.exports = () => {
     countValue () {
       var newValue = this.cards.reduce((prev, current) => prev + current.value, 0);
       if (newValue > 21) { // if the player has busted, convert aces value from 11 to 1
-        this.cards.forEach((card) => {
-          if (card.value === 11) {
+        for (let i = 0; i < this.cards.length; i++) {
+          if (this.cards[i].value === 11) {
             newValue -= 10;
-            card.value = 1;
+            this.cards[i].value = 1;
+            break;
           }
-        });
+        }
       }
       if (newValue > 21) {
         this.busted = true;
